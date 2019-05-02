@@ -80,8 +80,14 @@ brew install jupyter
 # brew install xz
 
 # Install other useful binaries.
+brew install ack
 brew install git
 brew install git-lfs
+brew install gpg
+brew install pv
+brew install rename
+brew install ssh-copy-id
+brew install tree 
 
 # Install UI apps
 brew cask install adobe-creative-cloud 
