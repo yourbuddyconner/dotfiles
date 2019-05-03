@@ -88,6 +88,7 @@ brew install pv
 brew install rename
 brew install ssh-copy-id
 brew install tree 
+brew install pcre
 
 # Install UI apps
 brew cask install adobe-creative-cloud 

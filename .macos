@@ -14,6 +14,28 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General UI/UX                                                               #
 ###############################################################################
 
+# Add Volume to menu bar
+currUser=$(who | grep "console" | cut -d" " -f1)
+
+Volume=$(grep "Volume.menu" /Users/$currUser/Library/Preferences/com.apple.systemuiserver.plist -c)
+if [ "$Volume" == 0 ]; then
+    echo "Adding Volume status to menu" 
+    open '/System/Library/CoreServices/Menu Extras/Volume.menu'
+fi
+
+Bluetooth=$(grep "Bluetooth.menu" /Users/$currUser/Library/Preferences/com.apple.systemuiserver.plist -c)
+if [ $Bluetooth == 0 ]; then
+    echo "Adding Bluetooth status to menu" 
+    open '/System/Library/CoreServices/Menu Extras/Bluetooth.menu'
+fi
+
+Clock=$(grep "Clock.menu" /Users/$currUser/Library/Preferences/com.apple.systemuiserver.plist -c)
+if [ $Clock == 0 ]; then
+    echo "Adding Clock status to menu" 
+    open '/System/Library/CoreServices/Menu Extras/Clock.menu'
+fi
+
+
 # Set computer name (as done via System Preferences → Sharing)
 #sudo scutil --set ComputerName "0x6D746873"
 #sudo scutil --set HostName "0x6D746873"
@@ -162,12 +184,6 @@ defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int
 # Enable full keyboard access for all controls
 # (e.g. enable Tab in modal dialogs)
 defaults write NSGlobalDomain AppleKeyboardUIMode -int 3
-
-# Use scroll gesture with the Ctrl (^) modifier key to zoom
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-# Follow the keyboard focus while zoomed in
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
@@ -649,7 +665,7 @@ defaults write com.apple.Terminal ShowLineMarks -int 0
 defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
 # Disable local Time Machine backups
-hash tmutil &> /dev/null && sudo tmutil disablelocal
+#hash tmutil &> /dev/null && sudo tmutil disablelocal
 
 ###############################################################################
 # Activity Monitor                                                            #
